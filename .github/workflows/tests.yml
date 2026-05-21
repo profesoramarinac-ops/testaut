@@ -1,0 +1,32 @@
+name: Java CI con JUnit Standalone
+
+on:
+  push:
+    branches: [ "main" ] # Cambia "main" por "master" si tu rama principal se llama así
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Descargar el código del repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar JDK de Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17' # Asegúrate de que coincida con la versión de Java que usas en Eclipse
+        distribution: 'temurin'
+
+    # Compilamos Calculadora.java y CalculadoraTest.java usando el JAR que ya tienes en lib/
+    - name: Compilar Código y Tests
+      run: |
+        mkdir -p bin_github
+        javac -d bin_github -cp "lib/junit-platform-console-standalone-1.10.0.jar" src/Calculadora.java test/CalculadoraTest.java
+
+    # Ejecutamos las pruebas escaneando las clases compiladas en bin_github
+    - name: Ejecutar Pruebas de JUnit
+      run: |
+        java -jar lib/junit-platform-console-standalone-1.10.0.jar --class-path bin_github --scan-class-path

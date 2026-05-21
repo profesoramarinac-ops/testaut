@@ -1,0 +1,16 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class CalculadoraTest {
+    @Test
+    public void testSuma() {
+        Calculadora calc = new Calculadora();
+        assertEquals(5, calc.sumar(2, 3));
+    }
+
+    @Test
+    public void testSumaError() {
+        Calculadora calc = new Calculadora();
+        assertEquals(6, calc.sumar(2, 3)); // This will fail
+    }
+}
