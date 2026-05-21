@@ -25,10 +25,11 @@ jobs:
       run: |
         curl -L -o junit-platform-console-standalone.jar https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.0/junit-platform-console-standalone-1.10.0.jar
 
-    - name: 4. Compilar Código y Tests
+    - name: 4. Compilar todo el proyecto (.java)
       run: |
         mkdir -p bin
-        javac -d bin -cp "junit-platform-console-standalone.jar" $(find src -name "*.java")
+        # Buscamos en todo el proyecto (.) ignorando la carpeta bin
+        javac -d bin -cp "junit-platform-console-standalone.jar" $(find . -name "*.java" ! -path "./bin/*")
 
     - name: 5. Ejecutar Pruebas de JUnit
       run: |
