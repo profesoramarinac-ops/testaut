@@ -1,0 +1,5 @@
+# Ignorar la carpeta de configuración oculta de Eclipse
+.metadata/
+
+# Ignorar las clases compiladas locales (GitHub las compilará de cero)
+bin/
